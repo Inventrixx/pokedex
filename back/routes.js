@@ -1,5 +1,9 @@
 module.exports = app => {
-  app.get("/", (req, res) => {
-    res.json("Hello World from my API!");
-  });
+  const PokeService = require("./services/PokeService");
+  const PokeServiceInstance = new PokeService();
+
+  const PokeController = require("./controllers/PokeController");
+  const PokeControllerInstance = new PokeController(PokeServiceInstance);
+
+  app.get("/api", PokeControllerInstance.getAllPokemons);
 };
