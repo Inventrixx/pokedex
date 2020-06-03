@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import SearchBar from "./SearchBar/SearchBar";
+import PokemonList from "./PokemonList/PokemonList";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [myPokemonFetched, setMyPokemonFetched] = useState([]);
+
+  useEffect(() => {
+    const myFetchedPokemon = async () => {
+      try {
+        let myFetchedPokemon = await axios.get(`http://localhost:8080/api/`);
+        setMyPokemonFetched(myFetchedPokemon.data.results);
+      } catch (e) {
+        console.warn(e);
+      }
+    };
+    myFetchedPokemon();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <section className="pokedex-main-section">
+      <SearchBar />
+      <PokemonList myPokemonFetched={myPokemonFetched} />
+    </section>
   );
-}
+};
 
 export default App;
