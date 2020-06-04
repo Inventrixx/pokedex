@@ -5,5 +5,6 @@ module.exports = app => {
   const PokeController = require("./controllers/PokeController");
   const PokeControllerInstance = new PokeController(PokeServiceInstance);
 
-  app.get("/api", PokeControllerInstance.getAllPokemons);
+  app.get("/api/", PokeControllerInstance.getAllPokemons);
+  app.get("/api/:pokemon", PokeControllerInstance.getUniquePokemon);
 };
