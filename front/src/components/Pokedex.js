@@ -1,23 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import PokemonList from "./PokemonList";
+import PaginationButtons from "./PaginationButtons";
 import { getAllPokemons } from "../calls/getAllPokemons";
 
 const Pokedex = () => {
-  const componentIsMounted = useRef(true);
   const [myPokemonFetched, setMyPokemonFetched] = useState([]);
   const [myPokemonSearched, setMyPokemonSearched] = useState("");
+  const [addPage, setAddPage] = useState(0);
 
   useEffect(() => {
-    getAllPokemons()
+    let limit = 3;
+    if (window.innerWidth > 800) {
+      limit = 6;
+    }
+
+    getAllPokemons(addPage, limit)
       .then(response => {
-        if (componentIsMounted) setMyPokemonFetched(response);
+        setMyPokemonFetched(response);
       })
       .catch(e => console.warn(e));
-    return () => {
-      componentIsMounted.current = false;
-    };
-  }, []);
+  }, [addPage]);
 
   const pokeSearch = pokemon => {
     setMyPokemonSearched(pokemon);
@@ -29,14 +32,38 @@ const Pokedex = () => {
       return pokemon.name.indexOf(myPokemonSearched) !== -1;
     });
 
+  let noResults = filteredPokemons.length === 0;
+
   return (
     <section className="pokedex-main-section">
+      <div className="pokedex-header">
+        <div className="pokedex-circle"></div>
+        <span className="pokedex-title">Pokedex!</span>
+      </div>
       <SearchBar pokeSearch={pokeSearch} />
-      <PokemonList
-        myPokemonSearched={myPokemonSearched}
-        myPokemonFetched={myPokemonFetched}
-        filteredPokemons={filteredPokemons}
-      />
+
+      <div className="pokedex-pokemon-fetched">
+        {noResults ? (
+          "There are no results for your search, try next page!"
+        ) : (
+          <div className="pokedex-pokemon-design">
+            {myPokemonFetched &&
+              filteredPokemons.map((pokemon, i) => {
+                return (
+                  <PokemonList
+                    key={i}
+                    noResults={noResults}
+                    myPokemonSearched={myPokemonSearched}
+                    page={addPage}
+                    pokeName={pokemon.name}
+                  />
+                );
+              })}
+          </div>
+        )}
+      </div>
+
+      <PaginationButtons addPage={addPage} setAddPage={setAddPage} />
     </section>
   );
 };
