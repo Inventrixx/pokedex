@@ -13,8 +13,7 @@ To run the aplication you need to go through this steps:
 
 ```
 - git clone repo
-- npm install
-- npm install --save-dev nodemon
+- at /back & /front npm i
 - npm run dev at /back foulder to run the server
 - npm start at /front foulder to run the app.
 ```
