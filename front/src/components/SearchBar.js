@@ -8,7 +8,13 @@ const SearchBar = ({ pokeSearch }) => {
 
   return (
     <section className="search-bar">
-      <input type="text" onChange={onChangeInput} />
+      <div className="pokedex-search-input">
+        <input
+          placeholder="Gotta catch 'em all!"
+          type="text"
+          onChange={onChangeInput}
+        />
+      </div>
     </section>
   );
 };
