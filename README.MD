@@ -4,7 +4,7 @@ Hello There! This little project is about trying to build an app like [pokedex](
 
 ### Description
 
-I tried to recreate the pokedex in the web. Writing on a search bar will lead to filter the pokemons retrieved form [pokeAPI](https://pokeapi.co/). I didn't want to do 954 requests for each pokemon, so I've added buttons for pagination. Each page retrieves a limit of 3 pokemon in mobile and up to 6 on desktop.
+I tried to recreate the pokedex in the web. Writing on a search bar will lead to filter the pokemons retrieved form [pokeAPI](https://pokeapi.co/). I didn't want to do 954 requests for each pokemon, so I've added buttons for pagination. Each page retrieves a limit of 3 pokemon on mobile and up to 6 on desktop.
 I am not a big fan of css, but I tried to push a little further and make a mobile first design based on the pokedex from kanto (my favorite haha). On the desktop, it is like a card-grid design.
 
 ## Instructions
@@ -15,6 +15,8 @@ To run the aplication you need to go through this steps:
 - git clone repo
 - npm install
 - npm install --save-dev nodemon
+- npm run dev on /back foulder to run the server
+- npm start on /front foulder to run the app.
 ```
 
 ## Back-end
