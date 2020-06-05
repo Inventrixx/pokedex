@@ -8,11 +8,13 @@ const Pokedex = () => {
   const [myPokemonFetched, setMyPokemonFetched] = useState([]);
   const [myPokemonSearched, setMyPokemonSearched] = useState("");
   const [addPage, setAddPage] = useState(0);
+  const [searchPerPage, setSearchPerPage] = useState(3);
 
   useEffect(() => {
     let limit = 3;
     if (window.innerWidth > 800) {
       limit = 6;
+      setSearchPerPage(limit);
     }
 
     getAllPokemons(addPage, limit)
@@ -63,7 +65,11 @@ const Pokedex = () => {
         )}
       </div>
 
-      <PaginationButtons addPage={addPage} setAddPage={setAddPage} />
+      <PaginationButtons
+        addPage={addPage}
+        setAddPage={setAddPage}
+        searchPerPage={searchPerPage}
+      />
     </section>
   );
 };

@@ -1,7 +1,6 @@
 import React from "react";
 
-const PaginationButtons = ({ addPage, setAddPage }) => {
-  let searchPerPage = 5;
+const PaginationButtons = ({ addPage, setAddPage, searchPerPage }) => {
   return (
     <div className="pokedex-pagination">
       <button
